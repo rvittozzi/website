@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Product Index</title>
+    <style>
+        /* Basic reset */
+        body, h1, h2, ul, li, form, select, input, a {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f4f4f4;
+            margin: 30px;
+        }
+
+        h1, h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        li {
+            background-color: #fff;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        a {
+            text-decoration: none;
+            color: #3498db;
+            padding: 10px 15px;
+            border-radius: 5px;
+            background-color: #fff;
+            transition: background-color 0.3s;
+        }
+
+        a:hover {
+            background-color: #3498db;
+            color: #fff;
+        }
+
+        form {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: start;
+            gap: 10px;
+        }
+
+        select, input[type="number"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #3498db;
+            border: none;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #2980b9;
+        }
+
+        .login-form {
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-form {
+    margin: 10px 0;   /* Reduced margin */
+    padding: 10px;    /* Reduced padding */
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    width: 300px;     /* Set a specific width to make it smaller */
+}
+
+.login-form input {
+    width: 100%;
+    font-size: 14px;  /* Reduced font size */
+    padding: 5px;     /* Reduced padding */
+}
+
+.login-form h2 {
+    font-size: 16px;  /* Reduced font size for the title */
+    margin-bottom: 10px; /* Reduced margin */
+}
+
+.register-button {
+    margin-top: 10px; /* Reduced margin */
+    text-align: center;
+}
+    </style>
+</head>
+
+
+<body>
+    <!-- User Name Display and Logout Link -->
+    <div class="user-corner">
+        <!-- Check if the user is logged in -->
+        {% if 'user_id' in session %}
+        <p>Welcome, {{ session['user_name'] }}!</p>
+        <a href="{{ url_for('logout') }}">Logout</a>
+        {% else %}
+        <div class="login-form">
+            <h2>Login</h2>
+            <form method="post" action="{{ url_for('login') }}">
+                {{ form.hidden_tag() }}
+                <label for="login-username">Username:</label>
+                <input type="text" name="username" id="login-username" required>
+                <label for="login-password">Password:</label>
+                <input type="password" name="password" id="login-password" required>
+                <input type="submit" value="Login">
+            </form>
+            <div class="register-button">
+                <a href="{{ url_for('register') }}">Register</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <h1>Welcome to Jonah's Wood'n Stuff</h1>
+
+    <h2>Available Products</h2>
+    <ul>
+        {% for product_name, product_price in products.items() %}
+        <li>
+            {{ product_name }} - ${{ product_price }}
+            <a href="{{ url_for('product_page', product_name=product_name) }}">View Details</a>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <h2>Add to Cart</h2>
+    <form action="{{ url_for('add_to_cart') }}" method="post">
+        <select name="item">
+            {% for product_name in products.keys() %}
+            <option value="{{ product_name }}">{{ product_name }}</option>
+            {% endfor %}
+        </select>
+        <input type="number" name="quantity" min="1" value="1">
+        <input type="submit" value="Add to Cart">
+    </form>
+
+    <h2>Your Cart</h2>
+    <ul>
+        {% for item, quantity in cart.items() %}
+        <li>
+            {{ item }} x {{ quantity }} - ${{ products[item] * quantity }}
+        </li>
+        {% endfor %}
+    </ul>
+
+    <h2>Total: ${{ total }}</h2>
+    <a href="{{ url_for('show_cart') }}">View Cart</a>
+</body>
+
+</html>

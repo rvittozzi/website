@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Register</title>
+    <style>
+        /* General styles */
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f8f8f8;
+            max-width: 400px;
+            margin: 50px auto;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        div {
+            margin: 10px 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #666;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            padding: 10px;
+            width: 100%;
+            border: 1px solid #e0e0e0;
+            border-radius: 3px;
+            font-size: 14px;
+        }
+
+        input[type="submit"] {
+            padding: 10px 15px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Register</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div>
+            {{ form.username.label }} {{ form.username() }}
+        </div>
+        <div>
+            {{ form.password.label }} {{ form.password() }}
+        </div>
+        <div>
+            {{ form.confirm_password.label }} {{ form.confirm_password() }}
+        </div>
+        <!-- Adding the name field -->
+        <div>
+            {{ form.name.label }} {{ form.name() }}
+        </div>
+        <!-- Adding the full address field -->
+        <div>
+            {{ form.full_address.label }} {{ form.full_address() }}
+        </div>
+        <div>
+            {{ form.submit() }}
+        </div>
+    </form>
+</body>
+
+</html>

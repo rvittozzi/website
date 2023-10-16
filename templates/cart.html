@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Cart</title>
+    <link rel="stylesheet" type="text/css" href="path-to-your-css-file.css">
+    <style>
+        /* Inline styles for demonstration purposes */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #fff;
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin: 5px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            color: #e44d26;
+        }
+
+        a {
+            text-decoration: none;
+            background-color: #e44d26;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Your Cart</h1>
+    <ul>
+        {% for item, quantity in cart.items() %}
+            <li>{{ item }} x {{ quantity }} - ${{ products[item] * quantity }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Total: ${{ total }}</h2>
+    <a href="/">Go Back</a>
+</body>
+</html>

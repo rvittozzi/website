@@ -1,0 +1,55 @@
+<!-- templates/product_page.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ product.name }}</title>
+    <link rel="stylesheet" type="text/css" href="path-to-your-css-file.css">
+    <style>
+        /* Add some inline styles for demonstration purposes */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        .product-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            margin: 0 auto;
+            margin-top: 20px;
+        }
+
+        .product-title {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .product-price {
+            font-size: 24px;
+            color: #e44d26;
+        }
+
+        .product-image {
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="product-container">
+    <h1 class="product-title">{{ product.name }}</h1>
+    <p class="product-price">Price: ${{ product.price }}</p>
+    {% if product.image_filename %}
+        <img class="product-image" src="{{ url_for('static', filename=product.image_filename) }}" alt="{{ product.name }}">
+    {% endif %}
+</div>
+</body>
+</html>
